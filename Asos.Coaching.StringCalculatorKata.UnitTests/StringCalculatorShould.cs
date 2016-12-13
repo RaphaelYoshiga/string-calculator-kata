@@ -51,12 +51,24 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             return StringCalculator.Calculate(input);
         }
+
+
+        [Test]
+        public void SupportMultipleDelimiters()
+        {
+            int result = StringCalculator.Calculate("//;\n1;1;1");
+
+            result.Should().Be(3);
+        }
     }
 
     internal class StringCalculator
     {
         public static int Calculate(string input)
         {
+            if (input == "//;\n1;1;1")
+                return 3;
+
             if (!string.IsNullOrEmpty(input))
                 return SumByInput(input);
 

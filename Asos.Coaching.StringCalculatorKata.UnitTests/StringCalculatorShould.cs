@@ -25,12 +25,10 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         }
 
 
-        [Test]
-        public void ResultInTheSumOfCommaSeparatedNumbers()
+        [TestCase("1,2", ExpectedResult = 3)]
+        public int ResultInTheSumOfCommaSeparatedNumbers(string input)
         {
-            int result = StringCalculator.Calculate("1,2");
-
-            result.Should().Be(3);
+            return StringCalculator.Calculate(input);
         }
     }
 

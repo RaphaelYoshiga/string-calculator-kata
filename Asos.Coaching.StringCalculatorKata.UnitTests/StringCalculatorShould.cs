@@ -99,31 +99,24 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
             return SumSplitNumbers(SplitNumbers(input));
         }
 
-        private static string[] SplitNumbers(string input, string extraDelimiter = null)
+        private static int[] SplitNumbers(string input, string extraDelimiter = null)
         {
             var delimiters = new[] { "\n", ",", extraDelimiter };
-            return input.Split(delimiters, StringSplitOptions.None);
+            return input.Split(delimiters, StringSplitOptions.None)
+                .Select(int.Parse)
+                .ToArray();
         }
 
-        private static int SumSplitNumbers(string[] numbers)
-        {
-            var negativeNumbers = new List<int>();
-            int sum = 0;
-            foreach (var splittedNumber in numbers)
-            {
-                var number = int.Parse(splittedNumber);
-                if (number < 0)
-                    negativeNumbers.Add(number);
-                sum += number;
-            }
-
+        private static int SumSplitNumbers(int[] numbers)
+        {           
+            var negativeNumbers = numbers.Where(p => p < 0).ToArray();
             if (negativeNumbers.Any())
                 ThowErrorWithNegativeNumbers(negativeNumbers);
 
-            return sum;
+            return numbers.Sum();
         }
 
-        private static void ThowErrorWithNegativeNumbers(List<int> negativeNumbers)
+        private static void ThowErrorWithNegativeNumbers(IEnumerable<int> negativeNumbers)
         {
             string negativeNumbersString = string.Join(",", negativeNumbers.Select(n => n.ToString()).ToArray());
             throw new Exception($"negative numbers not allowed {negativeNumbersString}");

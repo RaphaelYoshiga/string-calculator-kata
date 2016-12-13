@@ -66,12 +66,12 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
     {
         public static int Calculate(string input)
         {
-            if (input == "//;\n1;1;1")
-                return 3;
-            if (input == "//;\n2;2;2")
-                return 6;
-            if (input == "//;\n3;3,3")
-                return 9;
+            if (input.Contains("//"))
+            {
+                var splittedInput = input.Split(new string[] {"//", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+                string delimiter = splittedInput[0];
+                return SumSplitNumbers(SplitNumbers(splittedInput[1], delimiter));
+            }
 
             if (!string.IsNullOrEmpty(input))
                 return SumByInput(input);
@@ -82,6 +82,10 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         private static int SumByInput(string input)
         {
             return SumSplitNumbers(SplitNumbers(input));
+        }
+        private static string[] SplitNumbers(string input, string extraDelimiter)
+        {
+            return input.Split(new string[] { "\n", ",", extraDelimiter }, StringSplitOptions.None);
         }
 
         private static string[] SplitNumbers(string input)

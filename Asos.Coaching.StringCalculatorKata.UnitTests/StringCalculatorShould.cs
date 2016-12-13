@@ -57,33 +57,25 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
     {
         public static int Calculate(string input)
         {
-            if (input == "1,1\n1")
-                return 3;
-            if (input == "2\n2,2")
-                return 6;
-            if (input == "3\n3,3")
-                return 9;
-
-            if (input.Contains("\n"))
-                return SumByNewLineSeparator(input);
-
-            if (input.Contains(","))
-                return HandleCommaSeparatedList(input);
-
             if (!string.IsNullOrEmpty(input))
-                return int.Parse(input);
+                return SumByInput(input);
 
             return 0;
         }
 
-        private static int SumByNewLineSeparator(string input)
+        private static int SumByInput(string input)
         {
-            return input.Split(new string[] {"\n"}, StringSplitOptions.None).Sum(splittedNumber => int.Parse(splittedNumber));
+            return SumSplitNumbers(SplitNumbers(input));
         }
 
-        private static int HandleCommaSeparatedList(string input)
+        private static string[] SplitNumbers(string input)
         {
-            return input.Split(',').Sum(splittedNumber => int.Parse(splittedNumber));
+            return input.Split(new string[] { "\n", "," }, StringSplitOptions.None);
+        }
+
+        private static int SumSplitNumbers(string[] numbers)
+        {
+            return numbers.Sum(splittedNumber => int.Parse(splittedNumber));
         }
     }
 }

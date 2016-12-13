@@ -27,14 +27,11 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
 
     internal class StringCalculator
     {
-        public static int Calculate(string empty)
+        public static int Calculate(string input)
         {
-            if (empty == "1")
-                return 1;
-            if (empty == "2")
-                return 2;
-            if (empty == "156")
-                return 156;
+            if (!string.IsNullOrEmpty(input))
+                return int.Parse(input);
+
             return 0;
         }
     }

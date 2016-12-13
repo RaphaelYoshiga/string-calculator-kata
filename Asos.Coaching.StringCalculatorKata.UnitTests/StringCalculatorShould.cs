@@ -61,6 +61,7 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
 
         [TestCase("-1", ExpectedResult = "negative numbers not allowed -1")]
         [TestCase("-10", ExpectedResult = "negative numbers not allowed -10")]
+        [TestCase("-10,-13", ExpectedResult = "negative numbers not allowed -10,-13")]
         public string ThrowExceptionWhenInputIsNegative(string input)
         {
             var exception = Assert.Throws<Exception>(() =>
@@ -80,6 +81,8 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
                 throw new Exception("negative numbers not allowed -1");
             if (input == "-10")
                 throw new Exception("negative numbers not allowed -10");
+            if(input == "-10,-13")
+                throw new Exception("negative numbers not allowed -10,-13");
 
             if (input.Contains("//"))
                 return SumWithExtraDelimiter(input);

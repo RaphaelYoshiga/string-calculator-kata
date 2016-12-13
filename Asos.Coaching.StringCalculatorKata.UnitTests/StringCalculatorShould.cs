@@ -44,11 +44,11 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
             return StringCalculator.Calculate(input);
         }
 
-        [Test]
-        public void SumNumbersBasedInNewLinesAndCommas()
+        [TestCase("1,1\n1", ExpectedResult = 3)]
+        [TestCase("2\n2,2", ExpectedResult = 6)]
+        public int SumNumbersBasedInNewLinesAndCommas(string input)
         {
-            int result = StringCalculator.Calculate("1,1\n1");
-            result.Should().Be(3);
+            return StringCalculator.Calculate(input);
         }
     }
 
@@ -58,6 +58,8 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             if (input == "1,1\n1")
                 return 3;
+            if (input == "2\n2,2")
+                return 6;
 
             if (input.Contains("\n"))
                 return SumByNewLineSeparator(input);

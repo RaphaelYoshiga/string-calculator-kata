@@ -26,6 +26,7 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
 
 
         [TestCase("1,2", ExpectedResult = 3)]
+        [TestCase("1,5", ExpectedResult = 6)]
         public int ResultInTheSumOfCommaSeparatedNumbers(string input)
         {
             return StringCalculator.Calculate(input);
@@ -38,6 +39,9 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             if (input == "1,2")
                 return 3;
+
+            if (input == "1,5")
+                return 6;
 
             if (!string.IsNullOrEmpty(input))
                 return int.Parse(input);

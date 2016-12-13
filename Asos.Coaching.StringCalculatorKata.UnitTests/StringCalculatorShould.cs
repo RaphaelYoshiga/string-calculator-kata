@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using NUnit.Framework;
 using System.Linq;
@@ -77,13 +78,6 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
     {
         public static int Calculate(string input)
         {
-            if (input == "-1")
-                throw new Exception("negative numbers not allowed -1");
-            if (input == "-10")
-                throw new Exception("negative numbers not allowed -10");
-            if(input == "-10,-13")
-                throw new Exception("negative numbers not allowed -10,-13");
-
             if (input.Contains("//"))
                 return SumWithExtraDelimiter(input);
 
@@ -113,7 +107,26 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
 
         private static int SumSplitNumbers(string[] numbers)
         {
-            return numbers.Sum(splittedNumber => int.Parse(splittedNumber));
+            var negativeNumbers = new List<int>();
+            int sum = 0;
+            foreach (var splittedNumber in numbers)
+            {
+                var number = int.Parse(splittedNumber);
+                if (number < 0)
+                    negativeNumbers.Add(number);
+                sum += number;
+            }
+
+            if (negativeNumbers.Any())
+                ThowErrorWithNegativeNumbers(negativeNumbers);
+
+            return sum;
+        }
+
+        private static void ThowErrorWithNegativeNumbers(List<int> negativeNumbers)
+        {
+            string negativeNumbersString = string.Join(",", negativeNumbers.Select(n => n.ToString()).ToArray());
+            throw new Exception($"negative numbers not allowed {negativeNumbersString}");
         }
     }
 }

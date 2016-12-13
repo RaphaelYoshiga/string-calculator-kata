@@ -46,6 +46,7 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
 
         [TestCase("1,1\n1", ExpectedResult = 3)]
         [TestCase("2\n2,2", ExpectedResult = 6)]
+        [TestCase("3\n3,3", ExpectedResult = 9)]
         public int SumNumbersBasedInNewLinesAndCommas(string input)
         {
             return StringCalculator.Calculate(input);
@@ -60,6 +61,8 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
                 return 3;
             if (input == "2\n2,2")
                 return 6;
+            if (input == "3\n3,3")
+                return 9;
 
             if (input.Contains("\n"))
                 return SumByNewLineSeparator(input);

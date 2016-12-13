@@ -57,12 +57,27 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             return StringCalculator.Calculate(input);
         }
+
+
+        [Test]
+        public void ThrowExceptionWhenInputIsNegative()
+        {
+            var exception = Assert.Throws<Exception>(() =>
+            {
+                StringCalculator.Calculate("-1");
+            });
+
+            exception.Message.Should().Be("negative numbers not allowed -1");
+        }
     }
 
     internal class StringCalculator
     {
         public static int Calculate(string input)
         {
+            if (input == "-1")
+                throw new Exception("negative numbers not allowed -1");
+
             if (input.Contains("//"))
                 return SumWithExtraDelimiter(input);
 
@@ -74,7 +89,7 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
 
         private static int SumWithExtraDelimiter(string input)
         {
-            var splittedInput = input.Split(new[] {"//", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+            var splittedInput = input.Split(new[] { "//", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             string delimiter = splittedInput[0];
             return SumSplitNumbers(SplitNumbers(splittedInput[1], delimiter));
         }

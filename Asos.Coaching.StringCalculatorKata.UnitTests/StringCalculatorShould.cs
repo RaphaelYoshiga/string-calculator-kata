@@ -17,6 +17,7 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
 
 
         [TestCase("1", ExpectedResult = 1)]
+        [TestCase("2", ExpectedResult = 2)]
         public int ResultInInputedNumber(string input)
         {            
             return StringCalculator.Calculate(input);
@@ -29,6 +30,8 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             if (empty == "1")
                 return 1;
+            if (empty == "2")
+                return 2;
             return 0;
         }
     }

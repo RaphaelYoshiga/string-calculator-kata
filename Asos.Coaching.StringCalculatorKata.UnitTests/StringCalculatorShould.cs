@@ -16,12 +16,10 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         }
 
 
-        [Test]
-        public void ResultInInputedNumber()
-        {
-            int result = StringCalculator.Calculate("1");
-
-            result.Should().Be(1);
+        [TestCase("1", ExpectedResult = 1)]
+        public int ResultInInputedNumber(string input)
+        {            
+            return StringCalculator.Calculate(input);
         }
     }
 

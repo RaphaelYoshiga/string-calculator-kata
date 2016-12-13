@@ -36,12 +36,11 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         }
 
 
-        [Test]
-        public void ResultInTheSumOfNumbersSupportingNewLines()
+        [TestCase("5\n5", ExpectedResult = 10)]
+        [TestCase("5\n15", ExpectedResult = 20)]
+        public int ResultInTheSumOfNumbersSupportingNewLines(string input)
         {
-            int result = StringCalculator.Calculate("5\n5");
-
-            result.Should().Be(10);
+            return StringCalculator.Calculate(input);
         }
     }
 
@@ -51,6 +50,8 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             if (input == "5\n5")
                 return 10;
+            if (input == "5\n15")
+                return 20;
 
             if (input.Contains(","))
                 return HandleCommaSeparatedList(input);

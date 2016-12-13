@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Asos.Coaching.StringCalculatorKata.UnitTests
 {
@@ -38,18 +39,18 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
     {
         public static int Calculate(string input)
         {
-            if (input == "1,2")
-                return 3;
-
-            if (input == "1,5")
-                return 6;
-            if (input == "18,20")
-                return 38;
+            if (input.Contains(","))
+                return HandleCommaSeparatedList(input);
 
             if (!string.IsNullOrEmpty(input))
                 return int.Parse(input);
 
             return 0;
+        }
+
+        private static int HandleCommaSeparatedList(string input)
+        {
+            return input.Split(',').Sum(splittedNumber => int.Parse(splittedNumber));
         }
     }
 }

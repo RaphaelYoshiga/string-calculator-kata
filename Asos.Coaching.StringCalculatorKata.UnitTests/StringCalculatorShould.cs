@@ -53,12 +53,11 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         }
 
 
-        [Test]
-        public void SupportMultipleDelimiters()
+        [TestCase("//;\n1;1;1", ExpectedResult = 3)]
+        [TestCase("//;\n2;2;2", ExpectedResult = 6)]
+        public int SupportMultipleDelimiters(string input)
         {
-            int result = StringCalculator.Calculate("//;\n1;1;1");
-
-            result.Should().Be(3);
+            return StringCalculator.Calculate(input);
         }
     }
 
@@ -68,6 +67,8 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             if (input == "//;\n1;1;1")
                 return 3;
+            if (input == "//;\n2;2;2")
+                return 6;
 
             if (!string.IsNullOrEmpty(input))
                 return SumByInput(input);

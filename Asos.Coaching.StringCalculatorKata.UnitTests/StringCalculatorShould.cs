@@ -25,7 +25,6 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
             return StringCalculator.Calculate(input);
         }
 
-
         [TestCase("1,2", ExpectedResult = 3)]
         [TestCase("1,5", ExpectedResult = 6)]
         [TestCase("18,20", ExpectedResult = 38)]
@@ -34,7 +33,6 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         {
             return StringCalculator.Calculate(input);
         }
-
 
         [TestCase("5\n5", ExpectedResult = 10)]
         [TestCase("5\n15", ExpectedResult = 20)]
@@ -52,7 +50,6 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
             return StringCalculator.Calculate(input);
         }
 
-
         [TestCase("//;\n1;1;1", ExpectedResult = 3)]
         [TestCase("//;\n2;2;2", ExpectedResult = 6)]
         [TestCase("//;\n3;3,3", ExpectedResult = 9)]
@@ -67,11 +64,7 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
         public static int Calculate(string input)
         {
             if (input.Contains("//"))
-            {
-                var splittedInput = input.Split(new string[] {"//", "\n"}, StringSplitOptions.RemoveEmptyEntries);
-                string delimiter = splittedInput[0];
-                return SumSplitNumbers(SplitNumbers(splittedInput[1], delimiter));
-            }
+                return SumWithExtraDelimiter(input);
 
             if (!string.IsNullOrEmpty(input))
                 return SumByInput(input);
@@ -79,18 +72,22 @@ namespace Asos.Coaching.StringCalculatorKata.UnitTests
             return 0;
         }
 
+        private static int SumWithExtraDelimiter(string input)
+        {
+            var splittedInput = input.Split(new[] {"//", "\n"}, StringSplitOptions.RemoveEmptyEntries);
+            string delimiter = splittedInput[0];
+            return SumSplitNumbers(SplitNumbers(splittedInput[1], delimiter));
+        }
+
         private static int SumByInput(string input)
         {
             return SumSplitNumbers(SplitNumbers(input));
         }
-        private static string[] SplitNumbers(string input, string extraDelimiter)
-        {
-            return input.Split(new string[] { "\n", ",", extraDelimiter }, StringSplitOptions.None);
-        }
 
-        private static string[] SplitNumbers(string input)
+        private static string[] SplitNumbers(string input, string extraDelimiter = null)
         {
-            return input.Split(new string[] { "\n", "," }, StringSplitOptions.None);
+            var delimiters = new[] { "\n", ",", extraDelimiter };
+            return input.Split(delimiters, StringSplitOptions.None);
         }
 
         private static int SumSplitNumbers(string[] numbers)
